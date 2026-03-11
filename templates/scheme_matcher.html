@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAUX – Scheme Matcher</title>
+  <link rel="stylesheet" href="static/novaux-ui.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+  <style>
+    .schemer-page {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 68px;
+    }
+
+    .schemer-sidebar {
+      width: 240px;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      padding: 24px 14px;
+      position: fixed;
+      top: 68px;
+      bottom: 0;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .schemer-sidebar .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .schemer-sidebar .sidebar-brand .material-symbols-outlined {
+      color: var(--primary);
+      font-size: 22px;
+    }
+
+    .schemer-main {
+      flex: 1;
+      margin-left: 240px;
+      padding: 48px clamp(20px, 4vw, 48px) 60px;
+      max-width: 1200px;
+    }
+
+    @media (max-width: 768px) {
+      .schemer-sidebar {
+        display: none;
+      }
+
+      .schemer-main {
+        margin-left: 0;
+      }
+    }
+
+    .status-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .criteria-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .schemes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .scheme-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: var(--trans);
+      animation: fadeUp 0.4s ease;
+    }
+
+    .scheme-card:hover {
+      border-color: rgba(79, 142, 247, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .scheme-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .scheme-card .benefits {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .scheme-card .benefits strong {
+      color: var(--text-primary);
+    }
+
+    .loading-state {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 8px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="novaux-nav" id="mainNav">
+    <div class="novaux-nav-inner">
+      <a href="index.html" class="novaux-logo">
+        <div class="nav-logo-icon">
+          <div class="nav-logo-ring"></div>
+          <img src="static/logo.png" alt="NOVAUX" />
+        </div>
+        <div class="nav-wordmark">
+          <span class="nl">N</span><span class="nl">O</span><span class="nl">V</span><span class="nl">A</span><span
+            class="nl">U</span><span class="nl">X</span>
+          <span class="nl-ai">AI</span>
+        </div>
+      </a>
+      <ul class="novaux-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="legal_assistant.html">Legal Assistant</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="legal_assistant.html">Legal Assistant</a></li>
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </div>
+
+  <div class="schemer-page">
+
+    <!-- SIDEBAR -->
+    <aside class="schemer-sidebar">
+      <div class="sidebar-brand">
+        <span class="material-symbols-outlined">task_alt</span>
+        Scheme Matcher
+      </div>
+      <nav>
+        <a class="sidebar-link active" href="#">
+          <span class="material-symbols-outlined">dashboard</span> Dashboard
+        </a>
+        <a class="sidebar-link" href="dashboard.html">
+          <span class="material-symbols-outlined">person</span> My Profile
+        </a>
+        <a class="sidebar-link" href="index.html">
+          <span class="material-symbols-outlined">home</span> Home
+        </a>
+        <a class="sidebar-link" href="legal_assistant.html">
+          <span class="material-symbols-outlined">manage_search</span> Legal Assistant
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="schemer-main">
+
+      <div style="margin-bottom:32px">
+        <p class="section-label">Government Programs</p>
+        <h1 class="page-title">Matched Schemes<br /><span class="gradient-text">For Your Startup</span></h1>
+      </div>
+
+      <!-- STATUS -->
+      <div id="status" class="status-card">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          Identifying matching government schemes…
+        </div>
+      </div>
+
+      <!-- RESULTS GRID -->
+      <div id="results" class="schemes-grid"></div>
+
+    </main>
+  </div>
+
+  <!-- SCRIPT (UNCHANGED LOGIC) -->
+  <script>
+    async function loadSchemesForCurrentUser() {
+      const statusDiv = document.getElementById("status");
+      const resultsDiv = document.getElementById("results");
+
+      try {
+        const res = await fetch("/api/match/auto", { method: "GET", credentials: "include" });
+
+        if (res.status === 401) {
+          statusDiv.innerHTML = `<p style="color:var(--danger);font-weight:600">You are not logged in. <a href="login.html" style="color:var(--primary)">Login</a> to see matched schemes.</p>`;
+          return;
+        }
+        if (res.status === 404) {
+          statusDiv.innerHTML = `<p style="color:var(--gold);font-weight:600">No startup profile found. Please <a href="signup.html" style="color:var(--primary)">complete your profile</a>.</p>`;
+          return;
+        }
+        if (!res.ok) {
+          statusDiv.innerHTML = `<p style="color:var(--danger)">Something went wrong while fetching schemes.</p>`;
+          return;
+        }
+
+        const data = await res.json();
+        const criteria = data.criteria || {};
+        const schemes = data.results || [];
+
+        statusDiv.innerHTML = `
+      <p class="text-sm text-muted" style="margin-bottom:10px">Matched based on your startup profile:</p>
+      <div class="criteria-chips">
+        <span class="badge badge-blue">Domain: ${criteria.domain || 'N/A'}</span>
+        <span class="badge badge-blue">Registration: ${criteria.registration || 'N/A'}</span>
+        <span class="badge badge-blue">Stage: ${criteria.stage || 'N/A'}</span>
+      </div>
+    `;
+
+        resultsDiv.innerHTML = "";
+        if (!Array.isArray(schemes) || schemes.length === 0) {
+          resultsDiv.innerHTML = `<p style="color:var(--text-muted)">No matching schemes found for your profile.</p>`;
+          return;
+        }
+
+        schemes.forEach(scheme => {
+          const benefits = Array.isArray(scheme.benefits)
+            ? scheme.benefits.join(", ")
+            : (scheme.benefits || "N/A");
+
+          const card = document.createElement("div");
+          card.className = "scheme-card";
+          card.innerHTML = `
+        <h3>${scheme.name}</h3>
+        <p class="benefits"><strong>Benefits:</strong> ${benefits}</p>
+        <a href="${scheme.link}" target="_blank" class="btn btn-primary btn-sm" style="text-align:center;justify-content:center">
+          <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>
+          Apply / Read More
+        </a>
+      `;
+          resultsDiv.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error("Error loading schemes:", err);
+        statusDiv.innerHTML = `<p style="color:var(--danger)">Failed to load schemes. Please try again later.</p>`;
+      }
+    }
+
+    loadSchemesForCurrentUser();
+  </script>
+</body>
+
+</html>

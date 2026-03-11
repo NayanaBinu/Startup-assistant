@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAUX – Startup Success Analytics</title>
+  <link rel="stylesheet" href="static/novaux-ui.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+  <style>
+    .predictor-page {
+      min-height: 100vh;
+      padding-top: 68px;
+    }
+
+    .predictor-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 60px;
+    }
+
+    .predictor-header {
+      margin-bottom: 36px;
+    }
+
+    .predictor-header h1 {
+      font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .predictor-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .predictor-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .predictor-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Card */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .form-card h2 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .funding-flags {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .flag-toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 6px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--trans);
+      position: relative;
+    }
+
+    .flag-toggle select {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .flag-toggle .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    .flag-toggle.has-vc {
+      border-color: rgba(79, 142, 247, 0.4);
+      background: rgba(79, 142, 247, 0.08);
+      color: var(--primary);
+    }
+
+    /* Results */
+    .results-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Score Ring */
+    .score-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      text-align: center;
+    }
+
+    .score-ring-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .score-ring {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0%, var(--border) 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .score-ring::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
+      background: var(--bg-card);
+    }
+
+    .score-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #scoreText {
+      font-size: 2.25rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .score-sub {
+      font-size: 0.72rem;
+      color: var(--text-subtle);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    #verdictText {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    /* Insight */
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+    }
+
+    .insight-card h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .insight-card h3 .material-symbols-outlined {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    #insightBox {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    #insightBox.positive {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="novaux-nav" id="mainNav">
+    <div class="novaux-nav-inner">
+      <a href="index.html" class="novaux-logo">
+        <div class="nav-logo-icon">
+          <div class="nav-logo-ring"></div>
+          <img src="static/logo.png" alt="NOVAUX" />
+        </div>
+        <div class="nav-wordmark">
+          <span class="nl">N</span><span class="nl">O</span><span class="nl">V</span><span class="nl">A</span><span
+            class="nl">U</span><span class="nl">X</span>
+          <span class="nl-ai">AI</span>
+        </div>
+      </a>
+      <ul class="novaux-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="legal_assistant.html">Legal Assistant</a></li>
+      </ul>
+      <div class="novaux-actions">
+        <span class="badge badge-gold">
+          <span class="material-symbols-outlined" style="font-size:13px">star</span>
+          ML Powered
+        </span>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="legal_assistant.html">Legal Assistant</a></li>
+    </ul>
+  </div>
+
+  <div class="predictor-page">
+    <div class="predictor-inner">
+
+      <div class="predictor-header">
+        <div class="badge badge-blue" style="margin-bottom:12px;display:inline-flex">
+          <span class="material-symbols-outlined" style="font-size:14px">insights</span>
+          Startup Analytics
+        </div>
+        <h1>Success <span class="gradient-text">Predictor</span></h1>
+        <p>Enter your startup metrics. Our ML model will forecast your success probability.</p>
+      </div>
+
+      <div class="predictor-layout">
+        <!-- FORM -->
+        <div class="form-card">
+          <h2>Startup Metrics</h2>
+          <form id="predictForm" class="form-group" style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <label class="form-label">Startup Age (Years)</label>
+              <input class="form-input" type="number" step="any" name="age_startup_year" placeholder="e.g. 3"
+                required />
+            </div>
+            <div>
+              <label class="form-label">Total Funding (USD)</label>
+              <input class="form-input" type="number" step="any" name="funding_total_usd" placeholder="e.g. 500000"
+                required />
+            </div>
+            <div>
+              <label class="form-label">Funding Rounds</label>
+              <input class="form-input" type="number" name="funding_rounds" placeholder="e.g. 2" required />
+            </div>
+            <div>
+              <label class="form-label">Milestones Achieved</label>
+              <input class="form-input" type="number" name="milestones" placeholder="e.g. 4" required />
+            </div>
+            <div>
+              <label class="form-label">Avg Participants</label>
+              <input class="form-input" type="number" name="avg_participants" placeholder="e.g. 3" required />
+            </div>
+            <div>
+              <label class="form-label">Relationship Count</label>
+              <input class="form-input" type="number" name="relationships" placeholder="e.g. 10" required />
+            </div>
+            <div>
+              <label class="form-label">Category</label>
+              <select class="form-input" name="category">
+                <option value="software">Software</option>
+                <option value="web">Web</option>
+                <option value="mobile">Mobile</option>
+                <option value="ecommerce">E-Commerce</option>
+                <option value="biotech">Biotech</option>
+                <option value="enterprise">Enterprise</option>
+                <option value="advertising">Advertising</option>
+                <option value="gamesvideo">Games / Video</option>
+                <option value="consulting">Consulting</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label">Funding Types</label>
+              <div class="funding-flags">
+                <div class="flag-toggle" id="vcToggle">
+                  <span class="material-symbols-outlined">corporate_fare</span>
+                  <span id="vcLabel">VC</span>
+                  <select name="has_VC" id="vcSel" onchange="updateFlag('vc',this.value)">
+                    <option value="1">VC</option>
+                    <option value="0">No VC</option>
+                  </select>
+                </div>
+                <div class="flag-toggle" id="angelToggle">
+                  <span class="material-symbols-outlined">person</span>
+                  <span id="angelLabel">Angel</span>
+                  <select name="has_angel" id="angelSel" onchange="updateFlag('angel',this.value)">
+                    <option value="1">Angel</option>
+                    <option value="0">No Angel</option>
+                  </select>
+                </div>
+                <div class="flag-toggle" id="seedToggle">
+                  <span class="material-symbols-outlined">eco</span>
+                  <span id="seedLabel">Seed</span>
+                  <select name="has_Seed" id="seedSel" onchange="updateFlag('seed',this.value)">
+                    <option value="1">Seed</option>
+                    <option value="0">No Seed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-full" style="margin-top:8px;padding:14px">
+              <span class="material-symbols-outlined" style="font-size:16px">rocket_launch</span>
+              Analyze Potential
+            </button>
+          </form>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-stack">
+          <div class="score-card">
+            <div class="section-label" style="margin-bottom:20px">Success Probability</div>
+            <div class="score-ring-wrap">
+              <div class="score-ring" id="circle">
+                <div class="score-inner">
+                  <span id="scoreText">—</span>
+                  <span class="score-sub">Probability</span>
+                </div>
+              </div>
+            </div>
+            <h2 id="verdictText" style="margin-top:4px;color:var(--text-muted)">Submit metrics to analyze</h2>
+          </div>
+
+          <div class="insight-card">
+            <h3>
+              <span class="material-symbols-outlined">lightbulb</span>
+              AI Strategic Insight
+            </h3>
+            <div id="insightBox">Submit your startup data to generate AI-powered strategic insights and recommendations.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPT (UNCHANGED LOGIC) -->
+  <script>
+    function updateFlag(type, val) {
+      const ids = { vc: 'vcToggle', angel: 'angelToggle', seed: 'seedToggle' };
+      const toggle = document.getElementById(ids[type]);
+      if (val === '1') toggle.classList.add('has-vc');
+      else toggle.classList.remove('has-vc');
+    }
+
+    document.getElementById("predictForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      btn.innerHTML = '<span class="spinner"></span> Analyzing…';
+      btn.disabled = true;
+
+      const data = Object.fromEntries(new FormData(this).entries());
+
+      try {
+        const res = await fetch("/api/startup/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.error) {
+          document.getElementById("verdictText").innerText = "Error: " + result.error;
+          document.getElementById("verdictText").style.color = "var(--danger)";
+          return;
+        }
+
+        const probability = result.success_probability;
+        const circle = document.getElementById("circle");
+        const isPositive = probability > 60;
+        const color = isPositive ? 'var(--success)' : probability > 40 ? 'var(--gold)' : 'var(--danger)';
+        circle.style.background = `conic-gradient(${color} ${probability}%, var(--border) ${probability}%)`;
+        document.getElementById("scoreText").innerText = probability + "%";
+        document.getElementById("scoreText").style.color = color;
+        document.getElementById("verdictText").innerText = result.verdict;
+        document.getElementById("verdictText").style.color = color;
+
+        const insightBox = document.getElementById("insightBox");
+        if (isPositive) {
+          insightBox.innerHTML = "🚀 <strong>Strong growth trajectory detected.</strong> Consider preparing for Series A scaling. Your metrics indicate healthy investor readiness.";
+          insightBox.className = 'positive';
+        } else {
+          insightBox.innerHTML = "⚠️ <strong>Risk indicators detected.</strong> Improve funding diversity and milestone velocity. Focus on product-market fit before next raise.";
+          insightBox.className = '';
+        }
+      } catch (err) {
+        document.getElementById("verdictText").innerText = "Server Error";
+        document.getElementById("verdictText").style.color = "var(--danger)";
+      }
+
+      btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">rocket_launch</span> Analyze Potential';
+      btn.disabled = false;
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAUX – Document Generator</title>
+  <link rel="stylesheet" href="static/novaux-ui.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+  <style>
+    .docgen-layout {
+      display: flex;
+      height: 100vh;
+      padding-top: 68px;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .docgen-sidebar {
+      width: 240px;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .docgen-sidebar h2 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-subtle);
+      padding: 0 10px 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .template-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 11px 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--trans);
+      margin-bottom: 2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .template-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+    }
+
+    .template-btn.active {
+      background: rgba(79, 142, 247, 0.1);
+      color: var(--primary);
+    }
+
+    .template-btn .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    /* Main editor */
+    .docgen-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .docgen-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+      gap: 16px;
+    }
+
+    .docgen-topbar h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .docgen-topbar h1 .material-symbols-outlined {
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .docgen-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      gap: 0;
+    }
+
+    /* Editor pane */
+    .editor-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .editor-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-subtle);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .editor-label .material-symbols-outlined {
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .doc-editor {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      outline: none;
+      min-height: 340px;
+      resize: none;
+      font-family: 'Inter', sans-serif;
+      transition: var(--trans);
+    }
+
+    .doc-editor:focus {
+      border-color: rgba(79, 142, 247, 0.35);
+    }
+
+    .editor-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Fields pane */
+    .fields-pane {
+      width: 280px;
+      border-left: 1px solid var(--border);
+      padding: 24px;
+      overflow-y: auto;
+      flex-shrink: 0;
+      background: var(--bg-surface);
+    }
+
+    .fields-pane h3 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-subtle);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .field-group {
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .fields-pane {
+        display: none;
+      }
+
+      .docgen-sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="novaux-nav" id="mainNav">
+    <div class="novaux-nav-inner">
+      <a href="index.html" class="novaux-logo">
+        <div class="nav-logo-icon">
+          <div class="nav-logo-ring"></div>
+          <img src="static/logo.png" alt="NOVAUX" />
+        </div>
+        <div class="nav-wordmark">
+          <span class="nl">N</span><span class="nl">O</span><span class="nl">V</span><span class="nl">A</span><span
+            class="nl">U</span><span class="nl">X</span>
+          <span class="nl-ai">AI</span>
+        </div>
+      </a>
+      <ul class="novaux-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="legal_assistant.html">Legal Assistant</a></li>
+      </ul>
+      <div class="novaux-actions">
+        <span class="badge badge-blue">
+          <span class="material-symbols-outlined" style="font-size:13px">article</span>
+          LegalDraft Workspace
+        </span>
+      </div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="legal_assistant.html">Legal Assistant</a></li>
+    </ul>
+  </div>
+
+  <div class="docgen-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docgen-sidebar">
+      <h2>Templates</h2>
+
+      <button class="template-btn active" id="btn-nda" onclick="setDocType('nda')">
+        <span class="material-symbols-outlined">handshake</span>
+        NDA Agreement
+      </button>
+      <button class="template-btn" id="btn-mou" onclick="setDocType('mou')">
+        <span class="material-symbols-outlined">description</span>
+        MoU Draft
+      </button>
+      <button class="template-btn" id="btn-rti" onclick="setDocType('rti')">
+        <span class="material-symbols-outlined">gavel</span>
+        RTI Application
+      </button>
+      <button class="template-btn" id="btn-pitch_deck" onclick="setDocType('pitch_deck')">
+        <span class="material-symbols-outlined">slideshow</span>
+        Pitch Deck
+      </button>
+
+      <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--border)">
+        <a href="dashboard.html" class="sidebar-link"
+          style="display:flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;font-size:0.8rem;padding:8px 0">
+          <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back to Dashboard
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="docgen-main">
+
+      <!-- TOPBAR -->
+      <header class="docgen-topbar">
+        <h1>
+          <span class="material-symbols-outlined">edit_document</span>
+          LegalDraft Workspace
+        </h1>
+        <div class="topbar-actions">
+          <button onclick="generateDocument()" class="btn btn-primary btn-sm">
+            <span class="material-symbols-outlined" style="font-size:14px">auto_awesome</span>
+            Generate Draft
+          </button>
+        </div>
+      </header>
+
+      <!-- BODY -->
+      <div class="docgen-body">
+
+        <!-- Editor -->
+        <div class="editor-pane">
+          <div class="editor-label">
+            <span class="material-symbols-outlined">edit</span>
+            Draft Editor
+          </div>
+          <div id="draftEditor" contenteditable="true" class="doc-editor">Click "Generate Draft" to create your legal
+            document…</div>
+          <div class="editor-actions">
+            <button onclick="downloadEdited('docx')" class="btn btn-primary btn-sm">
+              <span class="material-symbols-outlined" style="font-size:14px">download</span>
+              Download DOCX
+            </button>
+            <button onclick="downloadEdited('pdf')" class="btn btn-ghost btn-sm">
+              <span class="material-symbols-outlined" style="font-size:14px">picture_as_pdf</span>
+              Download PDF
+            </button>
+            <button onclick="copyDraft()" class="btn btn-ghost btn-sm">
+              <span class="material-symbols-outlined" style="font-size:14px">content_copy</span>
+              Copy Text
+            </button>
+          </div>
+        </div>
+
+        <!-- Fields Pane -->
+        <div class="fields-pane">
+          <h3>Document Fields</h3>
+
+          <input id="doc_type" type="hidden" />
+
+          <div id="partyField" class="field-group hidden">
+            <label class="form-label" for="partyInput">Other Party / Partner</label>
+            <input id="partyInput" class="form-input" placeholder="Partner company name" />
+          </div>
+
+          <div id="authorityField" class="field-group hidden">
+            <label class="form-label" for="authorityInput">Public Authority</label>
+            <input id="authorityInput" class="form-input" placeholder="e.g. Ministry of Finance" />
+          </div>
+
+          <div id="subjectField" class="field-group hidden">
+            <label class="form-label" for="subjectInput">Subject</label>
+            <input id="subjectInput" class="form-input" placeholder="Information requested…" />
+          </div>
+
+          <div id="purposeField" class="field-group hidden">
+            <label class="form-label" for="purposeInput">Purpose</label>
+            <textarea id="purposeInput" class="form-input" rows="4" placeholder="Describe the purpose…"></textarea>
+          </div>
+
+          <div id="fieldsPlaceholder" style="color:var(--text-subtle);font-size:0.82rem;line-height:1.6">
+            Select a template to see the required fields.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined" style="font-size:18px;color:var(--success)">check_circle</span>
+    <span id="toastMsg">Copied to clipboard!</span>
+  </div>
+
+  <script>
+    let activeType = 'nda';
+
+    function setDocType(type) {
+      activeType = type;
+      document.getElementById("doc_type").value = type;
+
+      // Update sidebar active state
+      document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`btn-${type}`).classList.add('active');
+
+      hideAll();
+      document.getElementById('fieldsPlaceholder').style.display = 'none';
+
+      if (type === "nda" || type === "mou") {
+        show("partyField");
+        show("purposeField");
+      }
+      if (type === "rti") {
+        show("authorityField");
+        show("subjectField");
+        show("purposeField");
+      }
+    }
+
+    function hideAll() {
+      ["partyField", "authorityField", "subjectField", "purposeField"]
+        .forEach(id => document.getElementById(id).classList.add("hidden"));
+    }
+
+    function show(id) {
+      document.getElementById(id).classList.remove("hidden");
+    }
+
+    // ── GENERATE ──
+    async function generateDocument() {
+      const editor = document.getElementById("draftEditor");
+      editor.textContent = "Generating your document…";
+
+      const payload = {
+        doc_type: document.getElementById("doc_type").value || activeType,
+        other_party: document.getElementById("partyInput")?.value,
+        partner_name: document.getElementById("partyInput")?.value,
+        authority: document.getElementById("authorityInput")?.value,
+        subject: document.getElementById("subjectInput")?.value,
+        purpose: document.getElementById("purposeInput")?.value
+      };
+
+      const res = await fetch("/api/documents/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.draft) {
+        editor.innerHTML = formatDraft(data.draft);
+      } else {
+        editor.textContent = data.error || "Generation failed.";
+        alert(data.error || "Generation failed");
+      }
+    }
+
+    // ── DOWNLOAD ──
+    async function downloadEdited(format = "docx") {
+      const text = document.getElementById("draftEditor").innerText;
+      const res = await fetch("/api/documents/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, format })
+      });
+      const data = await res.json();
+      if (data.file_url) {
+        window.open(data.file_url, "_blank");
+      } else {
+        alert("Export failed");
+      }
+    }
+
+    // ── COPY ──
+    function copyDraft() {
+      const text = document.getElementById("draftEditor").innerText;
+      navigator.clipboard.writeText(text);
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ── FORMAT ──
+    function formatDraft(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br>");
+    }
+
+    // Init
+    setDocType('nda');
+  </script>
+</body>
+
+</html>

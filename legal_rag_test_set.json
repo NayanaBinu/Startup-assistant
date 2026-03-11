@@ -1,0 +1,153 @@
+
+[
+  {
+    "question": "What is the definition of a One Person Company?",
+    "expected_keywords": ["one person", "member", "private company"],
+    "expected_section": ["2(62)"]
+  },
+  {
+    "question": "What is the maximum number of members allowed in a private company?",
+    "expected_keywords": ["two hundred", "200"],
+    "expected_section": ["2(68)"]
+  },
+  {
+    "question": "What defines a small company under the Companies Act?",
+    "expected_keywords": ["paid-up share capital", "fifty lakh rupees", "turnover", "two crore rupees"],
+    "expected_section": ["2(85)"]
+  },
+  {
+    "question": "What is the punishment for fraud according to the Companies Act?",
+    "expected_keywords": ["imprisonment", "fine", "fraud", "447"],
+    "expected_section": ["447"]
+  },
+  {
+    "question": "Which companies are required to constitute a Corporate Social Responsibility Committee?",
+    "expected_keywords": ["net worth", "five hundred crore", "turnover", "one thousand crore", "net profit", "five crore"],
+    "expected_section": ["135"]
+  },
+  {
+    "question": "Who is considered a Key Managerial Personnel in a company?",
+    "expected_keywords": ["Chief Executive Officer", "Managing Director", "Company Secretary", "Whole-time director", "Chief Financial Officer"],
+    "expected_section": ["2(51)"]
+  },
+  {
+    "question": "What is the threshold of aggregate turnover for GST registration in special category States?",
+    "expected_keywords": ["ten lakh rupees", "aggregate turnover", "special category"],
+    "expected_section": ["22"]
+  },
+  {
+    "question": "List categories of persons requiring compulsory registration under GST.",
+    "expected_keywords": ["inter-State taxable supply", "casual taxable persons", "reverse charge", "electronic commerce operator"],
+    "expected_section": ["24"]
+  },
+  {
+    "question": "What conditions must be met to take input tax credit under GST?",
+    "expected_keywords": ["tax invoice", "received the goods", "tax charged", "paid to the Government", "return furnished"],
+    "expected_section": ["16"]
+  },
+  {
+    "question": "What is the rate of tax deduction at source (TDS) under the GST Act?",
+    "expected_keywords": ["one per cent", "payment made or credited", "deductor"],
+    "expected_section": ["51"]
+  },
+  {
+    "question": "How is 'capital goods' defined under the GST Act?",
+    "expected_keywords": ["value", "capitalised", "books of account", "input tax credit"],
+    "expected_section": ["2(19)"]
+  },
+  {
+    "question": "What is the definition of a 'casual taxable person' in GST?",
+    "expected_keywords": ["occasionally undertakes transactions", "no fixed place of business"],
+    "expected_section": ["2(20)"]
+  },
+  {
+    "question": "Who is included in the definition of 'person' under the Income Tax Act?",
+    "expected_keywords": ["individual", "Hindu Undivided Family", "company", "firm", "association of persons"],
+    "expected_section": ["2(31)"]
+  },
+  {
+    "question": "When is a company said to be resident in India for Income Tax purposes?",
+    "expected_keywords": ["Indian company", "place of effective management", "in India"],
+    "expected_section": ["6"]
+  },
+  {
+    "question": "What is the Minimum Alternate Tax (MAT) rate based on book profit?",
+    "expected_keywords": ["eighteen and one-half per cent", "book profit"],
+    "expected_section": ["115JB"]
+  },
+  {
+    "question": "What is a short-term capital asset?",
+    "expected_keywords": ["held by an assessee", "not more than thirty-six months"],
+    "expected_section": ["2(42A)"]
+  },
+  {
+    "question": "Is a Limited Liability Partnership (LLP) considered a body corporate?",
+    "expected_keywords": ["body corporate", "legal entity", "separate from its partners"],
+    "expected_section": ["3"]
+  },
+  {
+    "question": "What are the requirements for designated partners in an LLP?",
+    "expected_keywords": ["at least two", "individuals", "resident in India"],
+    "expected_section": ["7"]
+  },
+  {
+    "question": "Who can be a partner in a Limited Liability Partnership?",
+    "expected_keywords": ["individual", "body corporate"],
+    "expected_section": ["5"]
+  },
+  {
+    "question": "What constitutes the financial year for a Limited Liability Partnership?",
+    "expected_keywords": ["1st day of April", "31st day of March", "following year"],
+    "expected_section": ["2(l)"]
+  },
+  {
+    "question": "How is 'partnership' defined under the Partnership Act?",
+    "expected_keywords": ["relation between persons", "agreed to share the profits", "business carried on by all or any"],
+    "expected_section": ["4"]
+  },
+  {
+    "question": "What is a 'partnership at will'?",
+    "expected_keywords": ["no provision", "duration", "determination"],
+    "expected_section": ["7"]
+  },
+  {
+    "question": "Can a minor be admitted to a partnership?",
+    "expected_keywords": ["minor", "benefits of partnership", "consent of all"],
+    "expected_section": ["30"]
+  },
+  {
+    "question": "What is the effect of non-registration of a partnership firm regarding suits?",
+    "expected_keywords": ["no suit", "enforce a right", "unless", "registered"],
+    "expected_section": ["69"]
+  },
+  {
+    "question": "Who can initiate the corporate insolvency resolution process?",
+    "expected_keywords": ["financial creditor", "operational creditor", "corporate debtor"],
+    "expected_section": ["6"]
+  },
+  {
+    "question": "What is the time limit for the completion of the insolvency resolution process?",
+    "expected_keywords": ["one hundred and eighty days", "180 days"],
+    "expected_section": ["12"]
+  },
+  {
+    "question": "What prohibitions apply during a moratorium under the IBC?",
+    "expected_keywords": ["institution of suits", "transferring", "encumbering", "foreclose", "recovery"],
+    "expected_section": ["14"]
+  },
+  {
+    "question": "What voting share is required for the withdrawal of an insolvency application?",
+    "expected_keywords": ["ninety per cent", "voting share", "committee of creditors"],
+    "expected_section": ["12A"]
+  },
+  {
+    "question": "Who comprises the committee of creditors in a corporate insolvency resolution process?",
+    "expected_keywords": ["financial creditors", "corporate debtor"],
+    "expected_section": ["21"]
+  },
+  {
+    "question": "What is the order of priority for distribution of assets during liquidation?",
+    "expected_keywords": ["insolvency resolution process costs", "workmen's dues", "debts owed to a secured creditor", "financial debts"],
+    "expected_section": ["53"]
+  }
+]

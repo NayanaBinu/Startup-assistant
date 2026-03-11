@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Startup Success Predictor</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f9; }
+    .container { width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    h2 { text-align: center; }
+    input, select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+    button { width: 100%; padding: 10px; background: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .result { text-align: center; font-size: 18px; margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Startup Success Predictor</h2>
+    <form method="POST" action="/predict">
+      <input type="number" name="funding_total_usd" placeholder="Funding Total (USD)" step="any" required>
+      <input type="number" name="funding_rounds" placeholder="Funding Rounds" required>
+      <input type="number" name="age_in_days" placeholder="Age in Days" required>
+      <input type="number" name="funding_duration_days" placeholder="Funding Duration (Days)" required>
+      <input type="number" name="funding_velocity" placeholder="Funding Velocity (USD/year)" step="any" required>
+
+      <select name="country_code" required>
+        <option value="USA">USA</option>
+        <option value="IND">IND</option>
+        <option value="GBR">GBR</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <select name="primary_category" required>
+        <option value="Software">Software</option>
+        <option value="Biotech">Biotech</option>
+        <option value="E-Commerce">E-Commerce</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>

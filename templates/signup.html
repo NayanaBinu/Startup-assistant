@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up – NOVAUX AI</title>
+  <link rel="stylesheet" href="static/novaux-ui.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+  <style>
+    .signup-page {
+      min-height: 100vh;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .signup-header .logotype {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+    }
+
+    .signup-header .logotype img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+    }
+
+    .signup-header h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .signup-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .signup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px 48px 40px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-subtle);
+      position: relative;
+      z-index: 1;
+      transition: var(--trans);
+    }
+
+    .step-item.active .step-circle {
+      border-color: var(--primary);
+      background: rgba(79, 142, 247, 0.1);
+      color: var(--primary);
+    }
+
+    .step-item.done .step-circle {
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+    }
+
+    .step-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-align: center;
+    }
+
+    .step-item.active .step-label {
+      color: var(--primary);
+    }
+
+    .step-item.done .step-label {
+      color: var(--success);
+    }
+
+    /* Steps panels */
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.active {
+      display: block;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 580px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .signup-card {
+        padding: 32px 24px;
+      }
+    }
+
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .auth-footer a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    legend {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    legend::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="signup-page">
+    <div class="signup-header">
+      <a href="index.html" class="logotype">
+        <img src="static/logo.png" alt="NOVAUX" />
+        NOVAUX <span style="color:var(--primary)">AI</span>
+      </a>
+      <h1>Create your account</h1>
+      <p>Set up your startup profile and get access to all NOVAUX tools</p>
+    </div>
+
+    <div class="signup-card">
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="step-item active" id="step-indicator-1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Account</div>
+        </div>
+        <div class="step-item" id="step-indicator-2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Startup</div>
+        </div>
+        <div class="step-item" id="step-indicator-3">
+          <div class="step-circle">3</div>
+          <div class="step-label">Details</div>
+        </div>
+      </div>
+
+      <form id="signupForm" novalidate>
+
+        <!-- Step 1: Account -->
+        <div class="step-panel active" id="panel-1">
+          <fieldset>
+            <legend>User Credentials</legend>
+            <div class="form-group">
+              <label class="form-label" for="name">Full Name</label>
+              <input type="text" id="name" class="form-input" placeholder="Jane Smith" required autocomplete="name" />
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="you@example.com" required
+                  autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="Min 8 characters" required
+                  autocomplete="new-password" />
+              </div>
+            </div>
+          </fieldset>
+          <div class="step-nav">
+            <span></span>
+            <button type="button" class="btn btn-primary" onclick="goStep(2)">
+              Continue <span class="material-symbols-outlined"
+                style="font-size:16px;margin-left:4px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Startup basics -->
+        <div class="step-panel" id="panel-2">
+          <fieldset>
+            <legend>Startup Details</legend>
+            <div class="form-group">
+              <label class="form-label" for="startup_name">Startup Name</label>
+              <input type="text" id="startup_name" class="form-input" placeholder="Acme Technologies" required />
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="domain">Domain</label>
+                <select id="domain" class="form-input" required>
+                  <option value="" disabled selected>Select domain</option>
+                  <option value="tech">Technology</option>
+                  <option value="biotech">Biotech</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="fintech">Fintech</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="services">Services</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="registration">Registration Type</label>
+                <select id="registration" class="form-input" required>
+                  <option value="" disabled selected>Select type</option>
+                  <option value="private limited">Private Limited</option>
+                  <option value="LLP">LLP</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="sole proprietorship">Sole Proprietorship</option>
+                  <option value="MSME">MSME</option>
+                  <option value="unregistered">Unregistered</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="stage">Stage</label>
+                <select id="stage" class="form-input" required>
+                  <option value="" disabled selected>Select stage</option>
+                  <option value="idea">Idea Stage</option>
+                  <option value="early">Early Stage</option>
+                  <option value="growth">Growth</option>
+                  <option value="scaling">Scaling</option>
+                  <option value="mature">Mature</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="location">Location</label>
+                <input type="text" id="location" class="form-input" placeholder="Bengaluru, Karnataka" required
+                  autocomplete="address-level2" />
+              </div>
+            </div>
+          </fieldset>
+          <div class="step-nav">
+            <button type="button" class="btn btn-ghost" onclick="goStep(1)">
+              <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back
+            </button>
+            <button type="button" class="btn btn-primary" onclick="goStep(3)">
+              Continue <span class="material-symbols-outlined"
+                style="font-size:16px;margin-left:4px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Funding & Vision -->
+        <div class="step-panel" id="panel-3">
+          <fieldset>
+            <legend>Funding & Vision</legend>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="funding">Funding (in Lakhs)</label>
+                <input type="number" id="funding" class="form-input" placeholder="e.g. 50" required min="0" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="team_size">Team Size</label>
+                <input type="number" id="team_size" class="form-input" placeholder="e.g. 10" required min="1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="website">Website (optional)</label>
+              <input type="url" id="website" class="form-input" placeholder="https://yourstartup.com"
+                autocomplete="url" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="problem">Problem Statement</label>
+              <textarea id="problem" class="form-input" placeholder="What problem is your startup solving?" rows="3"
+                required></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="vision">Vision / Mission</label>
+              <textarea id="vision" class="form-input" placeholder="Your startup's long-term vision…" rows="3"
+                required></textarea>
+            </div>
+          </fieldset>
+          <div class="step-nav">
+            <button type="button" class="btn btn-ghost" onclick="goStep(2)">
+              <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span class="material-symbols-outlined" style="font-size:16px">check_circle</span>
+              Create Account
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <p class="auth-footer">Already have an account? <a href="login.html">Sign in</a></p>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span class="material-symbols-outlined" id="toastIcon" style="font-size:18px">info</span>
+    <span id="toastMsg"></span>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function goStep(n) {
+      document.getElementById(`panel-${currentStep}`).classList.remove('active');
+      document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+
+      currentStep = n;
+
+      document.getElementById(`panel-${n}`).classList.add('active');
+      const indicator = document.getElementById(`step-indicator-${n}`);
+      indicator.classList.add('active');
+
+      // Mark previous as done
+      for (let i = 1; i < n; i++) {
+        const ind = document.getElementById(`step-indicator-${i}`);
+        ind.classList.remove('active');
+        ind.classList.add('done');
+        ind.querySelector('.step-circle').innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">check</span>`;
+      }
+    }
+
+    function showToast(msg, type = 'info') {
+      const t = document.getElementById('toast');
+      const icon = document.getElementById('toastIcon');
+      document.getElementById('toastMsg').textContent = msg;
+      icon.textContent = type === 'error' ? 'error' : 'check_circle';
+      icon.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.innerHTML = '<span class="spinner"></span> Creating account…';
+      btn.disabled = true;
+
+      const data = {
+        full_name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        startup_name: document.getElementById("startup_name").value,
+        domain: document.getElementById("domain").value,
+        registration_type: document.getElementById("registration").value,
+        stage: document.getElementById("stage").value,
+        funding_amount: document.getElementById("funding").value,
+        team_size: document.getElementById("team_size").value,
+        location: document.getElementById("location").value,
+        website: document.getElementById("website").value,
+        problem_statement: document.getElementById("problem").value,
+        vision: document.getElementById("vision").value,
+      };
+
+      try {
+        const res = await fetch("/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (res.ok) {
+          showToast(result.message || "Account created!", 'success');
+          setTimeout(() => window.location.href = "login.html", 1500);
+        } else {
+          showToast(result.error || "Signup failed", 'error');
+          btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">check_circle</span> Create Account';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        showToast("Error connecting to server", 'error');
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">check_circle</span> Create Account';
+        btn.disabled = false;
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+
+</html>

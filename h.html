@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NOVAGPT | Igniting Startup Success</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "novaux-dark": "#050b18",
+                        "novaux-accent": "#f59e0b",
+                        "nebula-purple": "#6b21a8",
+                        "nebula-blue": "#1e3a8a",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050b18; 
+            overflow-x: hidden; 
+            color: white;
+        }
+        
+        /* 🌌 Animated Nebula Background */
+        .nebula-bg {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, #6b21a8 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #1e3a8a 0%, transparent 40%);
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: drift 25s ease-in-out infinite alternate;
+            z-index: -20;
+        }
+
+        @keyframes drift {
+            from { transform: scale(1) translate(0, 0); }
+            to { transform: scale(1.3) translate(5%, 5%); }
+        }
+
+        #star-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -10;
+            pointer-events: none;
+        }
+
+        /* ✨ Main Logo Visual Effects */
+        .main-logo-container {
+            filter: drop-shadow(0 0 40px rgba(245, 158, 11, 0.35));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: logo-float 6s ease-in-out infinite;
+        }
+
+        .main-logo-container:hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 60px rgba(245, 158, 11, 0.5));
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #0f172a 25%, #f59e0b33 50%, #0f172a 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            from { background-position: 200% 0; }
+            to { background-position: -200% 0; }
+        }
+
+        .glass-panel {
+            background: rgba(5, 11, 24, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <div class="nebula-bg"></div>
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="flex items-center justify-between border-b border-white/10 px-6 py-4 bg-novaux-dark/40 backdrop-blur-xl sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 flex items-center justify-center overflow-hidden rounded-lg shadow-[0_0_15px_rgba(245,158,11,0.4)] bg-novaux-dark border border-white/5">
+                <!-- Header Logo Image -->
+                <img src="F:\FinalYrproject\logo\764727de-82ce-4076-b78e-ef69e42c27fd.jpg" alt="N" class="w-full h-full object-cover scale-[2] translate-y-[10%] -translate-x-[15%]">
+            </div>
+            <h2 class="text-xl font-black tracking-tight text-white uppercase">
+                NOVAUX <span class="text-novaux-accent text-[9px] font-bold px-2 py-0.5 bg-novaux-accent/10 border border-novaux-accent/20 rounded-full ml-1">AI CORE</span>
+            </h2>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-sm font-semibold text-slate-400 hover:text-white transition-colors" href="#">Ventures</a>
+            <a class="text-sm font-semibold text-slate-400 hover:text-white transition-colors" href="#">Intelligence</a>
+            <a class="text-sm font-semibold text-slate-400 hover:text-white transition-colors" href="#">Network</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="bg-white/5 hover:bg-white/10 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all border border-white/10">Launch Dashboard</button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col max-w-5xl mx-auto w-full px-6 py-12 items-center">
+        
+        <!-- Hero Section with Exact Image Logo -->
+        <div class="main-logo-container mb-12 w-full max-w-2xl">
+            <img src="F:\FinalYrproject\logo\764727de-82ce-4076-b78e-ef69e42c27fd.jpg" alt="VAUX Logo" class="w-full h-auto rounded-3xl">
+        </div>
+
+        <!-- Search Bar / Command Center -->
+        <div class="relative group max-w-3xl mx-auto w-full mb-16">
+            <div class="absolute -inset-1 bg-gradient-to-r from-novaux-accent to-nebula-purple rounded-2xl blur opacity-25 group-focus-within:opacity-100 transition duration-700"></div>
+            <div class="relative flex flex-col glass-panel rounded-2xl shadow-2xl overflow-hidden">
+                <div class="flex items-center px-6 py-5">
+                    <span class="material-symbols-outlined text-novaux-accent mr-4 scale-125">rocket_launch</span>
+                    <input class="flex-1 bg-transparent border-none focus:ring-0 text-xl placeholder:text-slate-600 text-white font-medium" 
+                           placeholder="Ask NOVAGPT about startup strategy or market analysis..." type="text"/>
+                    <button class="bg-novaux-accent text-black px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 shadow-lg shadow-novaux-accent/20">
+                        Initiate <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing State -->
+        <div class="w-full max-w-4xl">
+            <div class="flex flex-col gap-6 glass-panel p-10 rounded-3xl border-l-4 border-novaux-accent relative overflow-hidden">
+                <div class="flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-2xl bg-novaux-accent/10 border border-novaux-accent/30 flex items-center justify-center text-novaux-accent">
+                        <span class="material-symbols-outlined text-3xl animate-pulse">cognition</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-novaux-accent uppercase tracking-[0.3em] mb-1">Neural Engine Active</p>
+                        <h3 class="text-white font-bold text-lg">NOVAGPT is calculating growth trajectories...</h3>
+                    </div>
+                </div>
+                <div class="ml-16 space-y-4">
+                    <div class="h-4 w-5/6 rounded-lg shimmer"></div>
+                    <div class="h-4 w-full rounded-lg shimmer"></div>
+                    <div class="h-4 w-2/3 rounded-lg shimmer"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i = 0; i < 200; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.5,
+                    speed: Math.random() * 0.2 + 0.05,
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.y -= p.speed;
+                if (p.y < 0) p.y = canvas.height;
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body>
+</html>

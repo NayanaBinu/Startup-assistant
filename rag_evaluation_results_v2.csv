@@ -1,0 +1,31 @@
+question,hit_rate,mrr,citation_accuracy,semantic_relevance,groundedness,latency
+What is the definition of a One Person Company?,0,0.0,0,0,0.6739130434782609,12.828965187072754
+What is the maximum number of members allowed in a private company?,0,0.0,0,0,0.7692307692307693,35.15003848075867
+What defines a small company under the Companies Act?,0,0.0,1,0,0.359375,13.63897180557251
+What is the punishment for fraud according to the Companies Act?,1,1.0,1,0,0.8837209302325582,14.320759534835815
+Which companies are required to constitute a Corporate Social Responsibility Committee?,1,1.0,0,0,0.7413793103448276,44.308314085006714
+Who is considered a Key Managerial Personnel in a company?,0,0.0,1,0,0.39705882352941174,12.24459457397461
+What is the threshold of aggregate turnover for GST registration in special category States?,1,1.0,1,0,0.7368421052631579,11.779767036437988
+List categories of persons requiring compulsory registration under GST.,1,1.0,0,0,0.6,16.94359278678894
+What conditions must be met to take input tax credit under GST?,1,1.0,0,0,0.7894736842105263,11.833936929702759
+What is the rate of tax deduction at source (TDS) under the GST Act?,0,0.0,0,0,0.5348837209302325,10.0182785987854
+How is 'capital goods' defined under the GST Act?,0,0.0,1,0,0.36666666666666664,15.430842399597168
+What is the definition of a 'casual taxable person' in GST?,0,0.0,0,0,0.5294117647058824,11.443313598632812
+Who is included in the definition of 'person' under the Income Tax Act?,0,0.0,0,0,0.4067796610169492,18.869768381118774
+When is a company said to be resident in India for Income Tax purposes?,1,0.3333333333333333,0,0,0.7714285714285715,11.58018970489502
+What is the Minimum Alternate Tax (MAT) rate based on book profit?,0,0.0,0,0,0.6111111111111112,10.55403184890747
+What is a short-term capital asset?,0,0.0,0,0,0.5,11.481159210205078
+Is a Limited Liability Partnership (LLP) considered a body corporate?,1,0.5,0,0,0.5238095238095238,9.978548049926758
+What are the requirements for designated partners in an LLP?,1,0.5,0,0,0.6941176470588235,15.370091915130615
+Who can be a partner in a Limited Liability Partnership?,0,0.0,0,0,0.3504273504273504,13.015260457992554
+What constitutes the financial year for a Limited Liability Partnership?,0,0.0,0,0,0.5571428571428572,13.643383741378784
+How is 'partnership' defined under the Partnership Act?,1,0.3333333333333333,1,0,0.45454545454545453,14.832659721374512
+What is a 'partnership at will'?,1,0.25,0,0,0.6440677966101694,13.3507559299469
+Can a minor be admitted to a partnership?,1,1.0,0,0,0.782608695652174,11.775860071182251
+What is the effect of non-registration of a partnership firm regarding suits?,0,0.0,0,0,0.5,9.583398818969727
+Who can initiate the corporate insolvency resolution process?,1,1.0,1,0,0.8636363636363636,11.94546890258789
+What is the time limit for the completion of the insolvency resolution process?,1,1.0,0,0,0.72,12.552396774291992
+What prohibitions apply during a moratorium under the IBC?,1,1.0,0,0,0.5972222222222222,16.48526906967163
+What voting share is required for the withdrawal of an insolvency application?,0,0.0,0,0,0.6428571428571429,12.357284784317017
+Who comprises the committee of creditors in a corporate insolvency resolution process?,1,0.25,0,0,0.631578947368421,10.757908344268799
+What is the order of priority for distribution of assets during liquidation?,1,1.0,1,0,0.7368421052631579,11.192007541656494
