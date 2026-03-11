@@ -6,6 +6,13 @@ env/
 # Python cache
 __pycache__/
 *.pyc
+Docs/
+rag/acts_pdfs/
+LLM-Mistral/chroma_db/
+dataset/
+scraper/
+ml_model/
+Predictor/
 
 # Logs
 *.log
